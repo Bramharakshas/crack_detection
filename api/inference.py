@@ -2,7 +2,7 @@ import numpy as np
 import onnxruntime as ort
 
 class CrackDetector:
-    def __init__(self, model_path: str = "../model/deeplabv3_crack.onnx"):
+    def __init__(self, model_path: str = "./model/deeplabv3_crack_fp16.onnx"):
         available_providers = ort.get_available_providers()
         self.providers = []
         

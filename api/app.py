@@ -6,7 +6,7 @@ from inference import CrackDetector
 app = FastAPI(title="Crack Detection API")
 
 # Initialize the detector globally on startup
-detector = CrackDetector("../model/deeplabv3_crack.onnx")
+detector = CrackDetector("./model/deeplabv3_crack_fp16.onnx")
 
 @app.post("/predict")
 async def predict_crack(file: UploadFile = File(...)):

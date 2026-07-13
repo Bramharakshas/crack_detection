@@ -10,6 +10,6 @@ __pycache__/
 # Ignore local model weights and large compiled engines 
 # (You don't want gigabytes of models pushed to GitHub!)
 *.pth
-*.onnx
+#*.onnx
 cache/
 .ipynb_checkpoints
