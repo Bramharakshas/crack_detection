@@ -1,0 +1,15 @@
+# Ignore python virtual environments
+venv/
+.venv/
+env/
+
+# Ignore python compiled bytecode
+__pycache__/
+*.pyc
+
+# Ignore local model weights and large compiled engines 
+# (You don't want gigabytes of models pushed to GitHub!)
+*.pth
+*.onnx
+cache/
+.ipynb_checkpoints

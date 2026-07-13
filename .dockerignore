@@ -1,0 +1,23 @@
+# Ignore git files (Docker doesn't need version history)
+.git
+.gitignore
+
+# Ignore local python virtual environments 
+# (Docker installs its own packages fresh from the Dockerfile)
+venv/
+.venv/
+
+# Ignore local test reports and markdown docs
+README.md
+.github/
+tests/
+
+# CRUCIAL: Ignore your LOCAL TensorRT engine cache
+# Your local Windows engine won't work inside the Linux container anyway!
+cache/
+__pycache__/
+.ipynb_checkpoints/
+
+**/__pycache__/
+*.pyc
+*.pyo
