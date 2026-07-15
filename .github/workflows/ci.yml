@@ -28,4 +28,4 @@ jobs:
 
     - name: Run Tests
       run: |
-        pytest test_app.py
+        pytest api/test_app.py

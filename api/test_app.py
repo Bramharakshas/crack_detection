@@ -6,7 +6,7 @@ from inference import CrackDetector
 def test_inference_wrapper_fallback():
     # 1. Ensure a dummy model exists or create a tiny dummy file for mocking 
     # (In real CI/CD, you can pull your real ONNX file or a lightweight version)
-    model_path = "./model/deeplabv3_crack.onnx"
+    model_path = "./model/deeplabv3_crack_fp16.onnx"
     
     if not os.path.exists(model_path):
         pytest.skip("ONNX model file not found, skipping integration testing.")
