@@ -5,3 +5,4 @@ opencv-python-headless
 pytest
 onnxruntime
 pillow
+httpx2
