@@ -4,7 +4,7 @@ from PIL import Image
 from fastapi.testclient import TestClient
 
 # Import your FastAPI app instance
-from api.app import app
+from app import app
 
 client = TestClient(app)
 
