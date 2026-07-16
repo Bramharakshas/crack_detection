@@ -6,3 +6,4 @@ pytest
 onnxruntime
 pillow
 httpx2
+python-multipart
