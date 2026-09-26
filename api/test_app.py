@@ -1,10 +1,20 @@
 import io
 import numpy as np
 from PIL import Image
+import sys
+from pathlib import Path
 from fastapi.testclient import TestClient
 
+TEST_DIR = Path(__file__).resolve().parent
+ROOT_DIR = TEST_DIR.parent
+
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+if str(TEST_DIR) not in sys.path:
+    sys.path.insert(0, str(TEST_DIR))
+
 # Import your FastAPI app instance
-from app import app
+from api.app import app
 
 client = TestClient(app)
 

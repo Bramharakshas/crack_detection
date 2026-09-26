@@ -6,6 +6,9 @@ from PIL import Image
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from typing import List
+import os
+import sys
+from pathlib import Path
 
 # Import your validated CrackDetector
 from inference import CrackDetector
@@ -16,7 +19,12 @@ app = FastAPI(
     version="1.0.0"
 )
 
-MODEL_PATH = "./model/deeplabv3_crack_fp16.onnx"
+API_DIR = Path(__file__).resolve().parent
+if str(API_DIR) not in sys.path:
+    sys.path.insert(0, str(API_DIR))
+
+BASE_DIR = API_DIR.parent
+MODEL_PATH = str(BASE_DIR / "model" / "deeplabv3_crack_fp16.onnx")
 detector = CrackDetector(MODEL_PATH)
 
 # Pydantic schemas for clean documentation & structured validation
