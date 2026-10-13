@@ -156,7 +156,7 @@ async def predict_single_frame(file: UploadFile = File(...)):
 
 
 @app.post("/predict-tiled", response_model=DetectionResponse)
-async def predict_high_res_tiled(file: UploadFile = File(...), patch_size: int = 512):
+async def predict_high_res_tiled(file: UploadFile = File(...), patch_size: int = 256):
     """
     Tiled inference for high-res images. Slices, runs inference, stitches, 
     extracts coordinates from the complete stitched mask, and returns the unified JSON payloads.
