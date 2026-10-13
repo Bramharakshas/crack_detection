@@ -28,6 +28,27 @@ class CrackDetector:
         
         print(f"CrackDetector initialized using providers: {self.session.get_providers()}")
 
+    def predict(self, image: np.ndarray) -> np.ndarray:
+        """
+        Performs inference on a single image or patch (e.g., 512x512).
+        Returns a binary mask array (0 or 1).
+        """
+        # 1. Normalize and convert to CHW format
+        norm_img = (image.astype(np.float32) / 255.0 - np.array([0.485, 0.456, 0.406], dtype=np.float32)) / np.array([0.229, 0.224, 0.225], dtype=np.float32)
+        norm_img = norm_img.transpose(2, 0, 1)  # HWC to CHW
+        
+        # 2. Add batch dimension -> (1, C, H, W)
+        batch_input = np.expand_dims(norm_img, axis=0).astype(np.float32)
+        
+        # 3. Run ONNX session
+        output = self.session.run(None, {self.input_name: batch_input})[0]
+        
+        # 4. Apply Sigmoid and threshold at 0.5 to get binary mask
+        probs = 1 / (1 + np.exp(-output))
+        binary_mask = (probs[0, 0] > 0.5).astype(np.uint8)
+        
+        return binary_mask
+
     def predict_sliding_window(self, image: np.ndarray, window_size: int = 256, stride: int = 128, batch_size: int = 32) -> np.ndarray:
         """
         Performs batched sliding-window inference over a large image.
