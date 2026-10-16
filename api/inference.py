@@ -1,3 +1,19 @@
+import os
+import sys
+
+# Explicitly register NVIDIA pip package DLL directories for Windows
+if os.name == 'nt':
+    import site
+    for site_pkg in site.getsitepackages():
+        nvidia_root = os.path.join(site_pkg, 'nvidia')
+        if os.path.exists(nvidia_root):
+            for package_name in os.listdir(nvidia_root):
+                bin_dir = os.path.join(nvidia_root, package_name, 'bin')
+                if os.path.exists(bin_dir):
+                    try:
+                        os.add_dll_directory(bin_dir)
+                    except Exception:
+                        pass
 import numpy as np
 import onnxruntime as ort
 
@@ -23,7 +39,16 @@ class CrackDetector:
         
         # ONNX Runtime reads the graph structure, then instantly maps 
         # execution to the pre-compiled engine weights if found in the cache path
-        self.session = ort.InferenceSession(model_path, providers=self.providers)
+        # Add graph optimization options
+        sess_options = ort.SessionOptions()
+        sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+        
+        # Initialize session with optimizations and your providers list
+        self.session = ort.InferenceSession(
+            model_path, 
+            sess_options=sess_options, 
+            providers=self.providers
+        )
         self.input_name = self.session.get_inputs()[0].name
         
         print(f"CrackDetector initialized using providers: {self.session.get_providers()}")

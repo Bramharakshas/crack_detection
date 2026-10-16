@@ -1,3 +1,19 @@
+import os
+import site
+
+# --- CRITICAL WINDOWS GPU DLL FIX ---
+if os.name == 'nt':
+    for site_pkg in site.getsitepackages():
+        nvidia_root = os.path.join(site_pkg, 'nvidia')
+        if os.path.exists(nvidia_root):
+            for package_name in os.listdir(nvidia_root):
+                bin_dir = os.path.join(nvidia_root, package_name, 'bin')
+                if os.path.exists(bin_dir) and bin_dir not in os.environ['PATH']:
+                    os.environ['PATH'] = bin_dir + os.pathsep + os.environ['PATH']
+                    try:
+                        os.add_dll_directory(bin_dir)
+                    except Exception:
+                        pass
 import io
 import base64
 import cv2
@@ -6,7 +22,7 @@ from PIL import Image
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from typing import List
-import os
+#import os
 import sys
 from pathlib import Path
 
