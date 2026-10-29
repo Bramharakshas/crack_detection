@@ -1,7 +1,3 @@
-Here is a comprehensive, professional `README.md` tailored for your **Crack Detection** repository. You can copy and paste this directly into your project root as `README.md`.
-
----
-
 # DeepLabV3 Crack Detection & Segmentation Pipeline
 
 A high-performance, real-time computer vision system designed for precise crack detection and semantic segmentation on high-resolution images and video streams. Built with a **FastAPI** backend leveraging **ONNX Runtime (GPU/CUDA acceleration)** and a client-side video processing pipeline with tiled sliding-window inference and temporal prediction caching.
